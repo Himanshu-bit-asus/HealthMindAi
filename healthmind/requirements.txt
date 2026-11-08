@@ -1,0 +1,14 @@
+# Versions intentionally NOT pinned here: pin exact versions after a successful
+# GPU smoke test (pip freeze), because TRL/PEFT APIs change between releases.
+torch
+transformers
+trl
+peft
+accelerate
+datasets
+mlflow
+sagemaker
+pyyaml
+pytest
+# flash-attn   # optional; needs matching CUDA/PyTorch build
+# vllm         # optional, for GRPO generation; must match the TRL version

@@ -1,0 +1,14 @@
+base_model: Intelligent-Internet/II-Medical-8B
+dataset_dir: /opt/ml/input/data/train      # contains train.jsonl, val.jsonl, dataset_manifest.json
+seed: 42
+qlora: true      # 4-bit NF4 base + LoRA: for 24GB GPUs. Set false only if you have the memory.
+lora: {r: 16, alpha: 32, dropout: 0.05, target_modules: all-linear}
+train:
+  # precision/attention are auto-selected from the GPU (training/hw.py)
+  per_device_batch_size: 1   # 24GB GPUs: start at 1, raise only after measuring peak VRAM
+  gradient_accumulation_steps: 16
+  learning_rate: 1.0e-4
+  num_epochs: 2
+  max_length: 2048
+  packing: false          # enable only after checking it doesn't cross example boundaries in your TRL version
+  save_steps: 100

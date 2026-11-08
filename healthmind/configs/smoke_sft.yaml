@@ -1,0 +1,14 @@
+# SMOKE TEST ONLY. Small model, synthetic data. Verify the model id exists before running.
+base_model: Qwen/Qwen3-0.6B
+qlora: false
+dataset_dir: /opt/ml/input/data/train      # channel containing the smoke_data files
+seed: 42
+lora: {r: 8, alpha: 16, dropout: 0.05, target_modules: all-linear}
+train:
+  per_device_batch_size: 4
+  gradient_accumulation_steps: 2
+  learning_rate: 2.0e-4
+  num_epochs: 3
+  max_length: 512
+  packing: false
+  save_steps: 10

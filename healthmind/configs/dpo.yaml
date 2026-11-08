@@ -1,0 +1,15 @@
+base_model: Intelligent-Internet/II-Medical-8B
+parent_adapter: null          # set to the SFT adapter dir if SFT was run
+dataset_version: v1
+seed: 42
+qlora: true      # 4-bit NF4 base + LoRA: for 24GB GPUs. Set false only if you have the memory.
+lora: {r: 16, alpha: 32, dropout: 0.05, target_modules: all-linear}
+train:
+  # precision/attention are auto-selected from the GPU (training/hw.py)
+  per_device_batch_size: 1   # 24GB GPUs: start at 1, raise only after measuring peak VRAM
+  gradient_accumulation_steps: 16
+  learning_rate: 5.0e-6
+  beta: 0.1
+  max_length: 2048
+  num_epochs: 1
+  save_steps: 100              # checkpoints go to /opt/ml/checkpoints on SageMaker
